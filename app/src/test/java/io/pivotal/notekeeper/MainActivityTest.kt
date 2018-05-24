@@ -15,7 +15,7 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class MainActivityTest {
     @Test
-    fun `display a list of cards`() {
+    fun `displays a list of cards`() {
         val mainActivity = Robolectric.setupActivity(MainActivity::class.java)
         val recyclerView: RecyclerView = mainActivity.findViewById(R.id.note_list)
         assertThat(recyclerView).isNotNull
