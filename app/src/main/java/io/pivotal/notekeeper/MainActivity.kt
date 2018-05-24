@@ -15,6 +15,5 @@ class MainActivity : BaseActivity() {
 
         note_list.layoutManager = LinearLayoutManager(this)
         note_list.adapter = NoteListAdapter(NoteService.instance)
-
     }
 }
