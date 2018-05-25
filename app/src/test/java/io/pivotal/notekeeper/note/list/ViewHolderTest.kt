@@ -20,7 +20,7 @@ class ViewHolderTest {
                 .from(RuntimeEnvironment.application.applicationContext)
                 .inflate(R.layout.note_card, null, false) as ConstraintLayout
 
-        val viewHolder = ViewHolder(view)
+        val viewHolder = ViewHolder(view, null)
         viewHolder.note = Note(12, "Title", "My Text")
 
         assertThat(viewHolder.view.findViewById<TextView>(R.id.card_title).text).isEqualTo("Title")

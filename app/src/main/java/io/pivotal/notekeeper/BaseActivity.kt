@@ -1,36 +1,46 @@
 package io.pivotal.notekeeper
 
+import android.content.Intent
+import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.design.widget.NavigationView
-import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.view.ViewGroup
+import io.pivotal.notekeeper.note.details.NoteActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
-open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    private fun onCreateDrawer() {
-        setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
+open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        super.setContentView(R.layout.activity_main)
+        setSupportActionBar(toolbar)
 
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
+
         nav_view.setNavigationItemSelectedListener(this)
     }
 
     override fun setContentView(@LayoutRes layoutResID: Int) {
-        super.setContentView(layoutResID)
-        onCreateDrawer();
+        val layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT)
+
+        val stubView = LayoutInflater
+                .from(this)
+                .inflate(layoutResID, view_stub, false)
+
+        view_stub.addView(stubView, layoutParams)
     }
 
 
@@ -62,7 +72,7 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_camera -> {
-                // Handle the camera action
+                startActivity(Intent(this, NoteActivity::class.java))
             }
             R.id.nav_gallery -> {
 
@@ -81,7 +91,6 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             }
         }
 
-        drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
 }
